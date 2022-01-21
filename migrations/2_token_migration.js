@@ -1,5 +1,5 @@
 const MyToken = artifacts.require("MyToken");
 
 module.exports = function (deployer) {
-  deployer.deploy(MyToken,"0xB504074493855FB50321a4f215A55FC5Ebfa63ca","0x99350952AAE89fc4A57E0f6A5D80901847d6f4Da");
+  deployer.deploy(MyToken,"0xaD38bC1A322a297D3596a6282e974d25F7957EF2","0xb3803B9eF8709613a2CbFA80CD49CdCca5d79559");
 };
