@@ -7,16 +7,15 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract MyToken is ERC20 {
     address _tokenOwner;
     address _bank;
-
     uint count;
  
 
-    struct lotterie{
+    struct Lotterie{
         address sender;
         uint256 amount;
     }
 
-    lotterie[] choicerandom;
+    Lotterie[] choicerandom;
 
     event transferCount(address sender, uint amount);
 
@@ -28,6 +27,7 @@ contract MyToken is ERC20 {
 
     function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
         uint tax = (amount * 10) /100;
+        choicerandom.push(Lotterie(_msgSender(),amount));
         _transfer(_msgSender(),_tokenOwner,tax/2);
         _transfer(_msgSender(),_bank,tax/2);
         _transfer(_msgSender(), recipient, amount - tax);
