@@ -6,8 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract MyToken is ERC20 {
     address _tokenOwner;
-    address _bank;
-    uint count;
+    uint count = 0;
  
 
     struct Loterie{
@@ -17,37 +16,40 @@ contract MyToken is ERC20 {
 
     Loterie[] choicerandom;
 
-    event transferCount(address sender, uint amount);
+    event transferCount(uint count);
     event RollLoterie(Loterie[] AllTransfer);
 
-    constructor(address owner, address bank) ERC20("Loterie", "AUR") {
+    constructor(address owner, address add1, address add2, address add3) ERC20("Loterie", "AUR") {
         _tokenOwner = owner;
-        _bank = bank;
         _mint(_tokenOwner, 1000000000000000000000);
+        _mint(add1, 3000000000000000000000);
+        _mint(add2, 3000000000000000000000);
+        _mint(add3, 3000000000000000000000);
     }
 
     function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
         uint tax = (amount * 10) /100;
 
         _transfer(_msgSender(),_tokenOwner,tax/2);
-        _transfer(_msgSender(),_bank,tax/2);
-        _transfer(_msgSender(), recipient, amount - tax);
+        _transfer(_msgSender(),address(this),tax/2);
+        _transfer(_msgSender(), recipient, (amount - tax));
+        count++;
         choicerandom.push(Loterie(_msgSender(),amount));
-        emit transferCount(_msgSender(),amount);
+        emit transferCount(count);
+        checkLotterieLength();
         return true;
     }
 
-    //Loterie.approve(_bank, 1000000000000000000000000000000000)
-
-    function transferToWinner(address winner)public{
-        require(_msgSender()== _tokenOwner);
-        uint amount = balanceOf(_bank);
-        transferFrom(_bank, winner, amount);
+    function transferToWinner(address winner) public {
+        uint amount = balanceOf(address(this));
+        _transfer(address(this),winner, amount);
     }
 
     function checkLotterieLength() public{
-        if (choicerandom.length == 100){
+        if (choicerandom.length >= 3){
             emit RollLoterie(choicerandom);
+            count = 0;
+            delete choicerandom;
         }
     }
 

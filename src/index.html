@@ -1,14 +1,32 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8"/>
-    <title>My First Parcel App</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Unknown Lottery</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300&display=swap" rel="stylesheet">
     <script type="module" src="script.js"></script>
   </head>
   <body>
+    <h1 class="titre-page">Unknown Lottery</h1>
+    <h3 class="sous-titre-page">Crypto Money Project</h3>
     <div class="counter">
-      <h1 id="count"></h1>
+      <h1>Nombre de transaction éffectué : <br></br><span id="count">0</span></h1>
+      <h1>Valeur totale du pot commun : <br></br><span id="total-amount"></span></h1>
     </div>
+    <h2 class="last-transaction-title">Dernières victoires :</h2>
+    <div class="container-transaction">
+      <div class="gagnant1 gagnant"><span id="victoire-1"></span></div>
+      <div class="gagnant2 gagnant"><span id="victoire-2"></span></div>
+      <div class="gagnant3 gagnant"><span id="victoire-3"></span></div>
+    </div>
+    <footer>
+      <div class="container-btn">
+      <button class="btn-inscription">S'inscrire</button>
+      <button class="btn-connection">Se connecter</button>
+    </div>
+    </footer>
   </body>
 </html>
